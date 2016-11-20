@@ -25,4 +25,4 @@ Once running, the service can be accessed by submitting POST request to port 800
 * POST /generator/\<date\> => Expects a JSON document describing a generator configuration as its POST parameter. The date must have the yyyy-MM-dd'T'HH:mm:ss.SSS format. The result is a sequence of comma separated lines, each of containing a value of a generated time series. The sequence covers time series values from the beginning of the generation to the given date.
 * POST /generator/\<d1\>/\<d2\> => Expects a JSON document describing a generator configuration as its POST parameter. The dates must have the yyyy-MM-dd'T'HH:mm:ss.SSS format. The result is a sequence of comma separated lines, each of containing a value of a generated time series. The sequence covers time series values from \<d1\> to \<d2\>.
 
-The syntax of JSON documents is described in the RTS-GEN [library documentation](http://rts-gen.readthedocs.io/en/master/).
+The syntax of JSON documents is described in the RTS-GEN [library documentation](https://rts-gen.readthedocs.io/en/latest/).
