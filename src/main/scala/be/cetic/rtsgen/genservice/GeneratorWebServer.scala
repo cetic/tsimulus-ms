@@ -8,7 +8,7 @@ import akka.http.scaladsl.server.PathMatchers
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import be.cetic.rtsgen.Main
+import be.cetic.rtsgen.Utils
 
 import scala.io.StdIn
 import be.cetic.rtsgen.config.{Configuration}
@@ -59,7 +59,7 @@ object GeneratorWebServer {
 
                   val config = Configuration(document.parseJson)
 
-                  val results = Main.generate(Main.config2Results(config))
+                  val results = Utils.generate(Utils.config2Results(config))
 
                   val answer = Source(results.map(x => dtf.print(x._1) + ";" + x._2 + ";" + x._3))
 
@@ -85,29 +85,22 @@ object GeneratorWebServer {
                { document =>
 
                   val config = Configuration(document.parseJson)
-                  val results = Main.generate(Main.config2Results(config))
 
                   val answer = segments match {
 
                      case List(limit) => {
-                        // We are looking for the values corresponding to a date before or equal to limit
+                        // We are looking for the values corresponding to a particular date
                         val reference = LocalDateTime.parse(limit, dtf)
                         val last = scala.collection.mutable.Map[String, (LocalDateTime, String)]()
+                        val results = Utils.eval(config, reference)
 
-                        results  .takeWhile(entry => entry._1 <= reference)
-                                 .foreach(entry =>
-                                 {
-                                    val date = entry._1
-                                    val data = entry._2
-                                    val value = entry._3.toString
-
-                                    last.put(data, (date, value))
-                                 })
-
-                        Source(last.toMap.map(entry => dtf.print(entry._2._1) + ";" + entry._1 + ";" + entry._2._2))
+                        Source(results.map(entry => dtf.print(reference) + ";" + entry._1 + ";" + entry._2.getOrElse("NA").toString))
                      }
 
                      case List(start, stop) => {
+
+                        val results = Utils.generate(Utils.config2Results(config))
+
                         val startDate = LocalDateTime.parse(start, dtf)
                         val endDate = LocalDateTime.parse(stop, dtf)
 
