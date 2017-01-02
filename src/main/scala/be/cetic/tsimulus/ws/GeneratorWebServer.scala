@@ -1,4 +1,4 @@
-package be.cetic.rtsgen.genservice
+package be.cetic.tsimulus.ws
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -8,13 +8,11 @@ import akka.http.scaladsl.server.PathMatchers
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import be.cetic.rtsgen.Utils
+import com.github.nscala_time.time.Imports._
+import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
+import spray.json._
 
 import scala.io.StdIn
-import be.cetic.rtsgen.config.Configuration
-import spray.json._
-import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
-import com.github.nscala_time.time.Imports._
 
 
 /**
