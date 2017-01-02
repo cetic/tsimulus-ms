@@ -1,5 +1,5 @@
 name := "ts-generator-ws"
-version := "1.1"
+version := "1.3"
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
@@ -15,7 +15,7 @@ libraryDependencies ++= Seq(
    "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
 
-libraryDependencies += "be.cetic" %% "rts-gen" % "0.1.10"
+libraryDependencies += "be.cetic" %% "rts-gen" % "0.1.13"
 
 // Create a package with sbt package
 mainClass in Compile := Some("be.cetic.rtsgen.genservice.GeneratorWebServer")

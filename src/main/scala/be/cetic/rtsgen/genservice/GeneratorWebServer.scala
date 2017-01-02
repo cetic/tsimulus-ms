@@ -11,9 +11,9 @@ import akka.util.ByteString
 import be.cetic.rtsgen.Utils
 
 import scala.io.StdIn
-import be.cetic.rtsgen.config.{Configuration}
+import be.cetic.rtsgen.config.Configuration
 import spray.json._
-import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
 import com.github.nscala_time.time.Imports._
 
 
@@ -24,7 +24,16 @@ import com.github.nscala_time.time.Imports._
   */
 object GeneratorWebServer {
 
-   private val dtf = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+   private val dtf = DateTimeFormat.forPattern("YYYY-MM-dd'T'HH:mm:ss.SSS")
+
+   val datetimeFormatter = {
+      val parsers = Array(
+         DateTimeFormat.forPattern("YYYY-MM-dd'T'HH:mm:ss.SSS").getParser,
+         DateTimeFormat.forPattern("YYYY-MM-dd'T'HH:mm:ss").getParser
+      )
+
+      new DateTimeFormatterBuilder().append(null, parsers).toFormatter()
+   }
 
    def main(args: Array[String]) : Unit =
    {
@@ -90,7 +99,7 @@ object GeneratorWebServer {
 
                      case List(limit) => {
                         // We are looking for the values corresponding to a particular date
-                        val reference = LocalDateTime.parse(limit, dtf)
+                        val reference = datetimeFormatter.parseLocalDateTime(limit)
                         val last = scala.collection.mutable.Map[String, (LocalDateTime, String)]()
                         val results = Utils.eval(config, reference)
 
@@ -101,8 +110,8 @@ object GeneratorWebServer {
 
                         val results = Utils.generate(Utils.config2Results(config))
 
-                        val startDate = LocalDateTime.parse(start, dtf)
-                        val endDate = LocalDateTime.parse(stop, dtf)
+                        val startDate = datetimeFormatter.parseLocalDateTime(start)
+                        val endDate = datetimeFormatter.parseLocalDateTime(stop)
 
                         val validValues = results.dropWhile(entry => entry._1 <= startDate)
                                                  .takeWhile(entry => entry._1 <= endDate)
