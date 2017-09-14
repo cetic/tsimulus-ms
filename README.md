@@ -26,3 +26,18 @@ Once running, the service can be accessed by submitting POST request to port 800
 * POST /generator/\<d1\>/\<d2\> => Expects a JSON document describing a generator configuration as its POST parameter. The dates must have the yyyy-MM-dd'T'HH:mm:ss.SSS format. The result is a sequence of comma separated lines, each of containing a value of a generated time series. The sequence covers time series values from \<d1\> to \<d2\>.
 
 The syntax of JSON documents is described in the TSimulus [library documentation](https://tsimulus.readthedocs.io/en/latest/).
+
+# Tsimulus-ms with Docker
+
+You can also retrieve the Docker image which contains the Tsimulus microservice. The Docker image has been created with a Dockerfile.
+
+* Pull the Docker image
+```
+docker pull anuttinck/tsimulus-ms
+```
+* Run the microservice: this command launches the tsimulus-ws.jar on port 8001.
+```
+sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d anuttinck/tsimulus-ms
+```
+
+When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
