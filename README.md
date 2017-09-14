@@ -29,7 +29,7 @@ The syntax of JSON documents is described in the TSimulus [library documentation
 
 # Tsimulus-ms with Docker
 
-You can also retrieve the Docker image which contains the Tsimulus microservice.
+You can also retrieve the Docker image which contains the Tsimulus microservice. The Docker image has been created with a Dockerfile.
 
 * Pull the Docker image
 ```
