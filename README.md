@@ -27,17 +27,17 @@ Once running, the service can be accessed by submitting POST request to port 800
 
 The syntax of JSON documents is described in the TSimulus [library documentation](https://tsimulus.readthedocs.io/en/latest/).
 
-# Tsimulus-ms with docker
+# Tsimulus-ms with Docker
 
-You can also retrieve the image docker which contains the microservice Tsimulus.
+You can also retrieve the Docker image which contains the Tsimulus microservice.
 
-* Pull the image docker
+* Pull the Docker image
 ```
-docker pull anuttinck/tsimulus-ws
+docker pull anuttinck/tsimulus-ms
 ```
 * Run the microservice: this command launches the tsimulus-ws.jar on port 8001.
 ```
-sudo docker run -ti -p 8001:8001 -d anuttinck/tsimulus-ws
+sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d anuttinck/tsimulus-ms
 ```
 
-When it's done, as the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
+When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
