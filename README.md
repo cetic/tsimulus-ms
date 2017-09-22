@@ -33,11 +33,11 @@ You can also retrieve the Docker image which contains the Tsimulus microservice.
 
 * Pull the Docker image
 ```
-docker pull anuttinck/tsimulus-ms
+docker pull ceticasbl/tsimulus-ms
 ```
 * Run the microservice: this command launches the tsimulus-ws.jar on port 8001.
 ```
-sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d anuttinck/tsimulus-ms
+sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms
 ```
 
 When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
