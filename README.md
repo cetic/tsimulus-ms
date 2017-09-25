@@ -47,7 +47,7 @@ When it's done, as explained in the previous section "How to use it?", the servi
 You can also run the microservice with OpenShift. For that, we use Kubernetes files which can be found in the kubernetes folder.
 In your OpenShift project, first, create the Kubernetes deployment:
 ```
-oc create -f tsimulus-deployement.yml
+oc create -f tsimulus-deployment.yml
 ```
 Then, create the Kubernetes service:
 ```
