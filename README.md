@@ -41,3 +41,23 @@ sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms
 ```
 
 When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
+
+# Tsimulus-ms with OpenShift
+
+You can also run the microservice with OpenShift. For that, we use Kubernetes files which can be found in the kubernetes folder.
+In your OpenShift project, first, create the Kubernetes deployment:
+```
+oc create -f tsimulus-deployement.yml
+```
+Then, create the Kubernetes service:
+```
+oc create -f tsimulus-service.yml
+```
+Finally, create a route by exposing the service tsimulus-ms.
+```
+oc expose service tsimulus-ms
+```
+
+Now the service is accessible at http://tsimulus-ms-tsimulus.apps.10.2.2.2.xip.io/.
+When it's done, as explained in the first section "How to use it?", the service can be accessed by submitting POST request to port 8001.
+
