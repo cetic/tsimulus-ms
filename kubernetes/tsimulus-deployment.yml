@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tsimulus-ms
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tsimulus-ms
+    spec:
+      containers:
+      - name: tsimulus-ms
+        image: ceticasbl/tsimulus-ms
+        stdin: true
+        tty: true
+        ports:
+        - containerPort: 8001
