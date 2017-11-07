@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: tsimulus-ms
-        image: ceticasbl/tsimulus-arm
+        image: ceticasbl/tsimulus-ms-arm64
         stdin: true
         tty: true
         ports:
