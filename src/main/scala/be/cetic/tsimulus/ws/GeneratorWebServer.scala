@@ -1,4 +1,4 @@
-package be.cetic.rtsgen.genservice
+package be.cetic.tsimulus.ws
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -8,13 +8,13 @@ import akka.http.scaladsl.server.PathMatchers
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
-import be.cetic.rtsgen.Main
+import be.cetic.tsimulus.Utils
+import be.cetic.tsimulus.config.Configuration
+import com.github.nscala_time.time.Imports._
+import org.joda.time.format.{DateTimeFormat, DateTimeFormatterBuilder}
+import spray.json._
 
 import scala.io.StdIn
-import be.cetic.rtsgen.config.{Configuration}
-import spray.json._
-import org.joda.time.format.DateTimeFormat
-import com.github.nscala_time.time.Imports._
 
 
 /**
@@ -24,7 +24,16 @@ import com.github.nscala_time.time.Imports._
   */
 object GeneratorWebServer {
 
-   private val dtf = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+   private val dtf = DateTimeFormat.forPattern("YYYY-MM-dd'T'HH:mm:ss.SSS")
+
+   val datetimeFormatter = {
+      val parsers = Array(
+         DateTimeFormat.forPattern("YYYY-MM-dd'T'HH:mm:ss.SSS").getParser,
+         DateTimeFormat.forPattern("YYYY-MM-dd'T'HH:mm:ss").getParser
+      )
+
+      new DateTimeFormatterBuilder().append(null, parsers).toFormatter()
+   }
 
    def main(args: Array[String]) : Unit =
    {
@@ -59,7 +68,7 @@ object GeneratorWebServer {
 
                   val config = Configuration(document.parseJson)
 
-                  val results = Main.generate(Main.config2Results(config))
+                  val results = Utils.generate(Utils.config2Results(config))
 
                   val answer = Source(results.map(x => dtf.print(x._1) + ";" + x._2 + ";" + x._3))
 
@@ -85,31 +94,24 @@ object GeneratorWebServer {
                { document =>
 
                   val config = Configuration(document.parseJson)
-                  val results = Main.generate(Main.config2Results(config))
 
                   val answer = segments match {
 
                      case List(limit) => {
-                        // We are looking for the values corresponding to a date before or equal to limit
-                        val reference = LocalDateTime.parse(limit, dtf)
+                        // We are looking for the values corresponding to a particular date
+                        val reference = datetimeFormatter.parseLocalDateTime(limit)
                         val last = scala.collection.mutable.Map[String, (LocalDateTime, String)]()
+                        val results = Utils.eval(config, reference)
 
-                        results  .takeWhile(entry => entry._1 <= reference)
-                                 .foreach(entry =>
-                                 {
-                                    val date = entry._1
-                                    val data = entry._2
-                                    val value = entry._3.toString
-
-                                    last.put(data, (date, value))
-                                 })
-
-                        Source(last.toMap.map(entry => dtf.print(entry._2._1) + ";" + entry._1 + ";" + entry._2._2))
+                        Source(results.map(entry => dtf.print(reference) + ";" + entry._1 + ";" + entry._2.getOrElse("NA").toString))
                      }
 
                      case List(start, stop) => {
-                        val startDate = LocalDateTime.parse(start, dtf)
-                        val endDate = LocalDateTime.parse(stop, dtf)
+
+                        val results = Utils.generate(Utils.config2Results(config))
+
+                        val startDate = datetimeFormatter.parseLocalDateTime(start)
+                        val endDate = datetimeFormatter.parseLocalDateTime(stop)
 
                         val validValues = results.dropWhile(entry => entry._1 <= startDate)
                                                  .takeWhile(entry => entry._1 <= endDate)
