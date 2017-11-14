@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tsimulus-ms
+spec:
+  selector:
+    app: tsimulus-ms
+  ports:
+  - protocol: TCP
+    port: 8001
+    targetPort: 8001
