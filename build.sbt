@@ -17,7 +17,7 @@ libraryDependencies ++= Seq(
 libraryDependencies += "be.cetic" %% "tsimulus" % "0.1.14"
 
 // Create a package with sbt package
-mainClass in Compile := Some("be.cetic.rtsgen.genservice.GeneratorWebServer")
+mainClass in Compile := Some("be.cetic.tsimulus.ws.GeneratorWebServer")
 
 // Create a fat jar with sbt assembly
-mainClass in assembly := Some("be.cetic.rtsgen.genservice.GeneratorWebServer")
+mainClass in assembly := Some("be.cetic.tsimulus.ws.GeneratorWebServer")

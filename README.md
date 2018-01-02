@@ -35,7 +35,7 @@ You can also retrieve the Docker image which contains the Tsimulus microservice.
 ```
 docker pull ceticasbl/tsimulus-ms
 ```
-* Run the microservice: this command launches the tsimulus-ws.jar on port 8001.
+* Run the microservice: this command launches the Tsimulus microservice on port 8001.
 ```
 sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms
 ```
