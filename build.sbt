@@ -1,5 +1,5 @@
 name := "tsimulus-ws"
-version := "1.4"
+version := "1.5"
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= Seq(
@@ -14,7 +14,7 @@ libraryDependencies ++= Seq(
    "ch.megard" %% "akka-http-cors" % "0.2.2"
 )
 
-libraryDependencies += "be.cetic" %% "tsimulus" % "0.1.14"
+libraryDependencies += "be.cetic" %% "tsimulus" % "0.1.16"
 
 // Create a package with sbt package
 mainClass in Compile := Some("be.cetic.tsimulus.ws.GeneratorWebServer")
