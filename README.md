@@ -37,7 +37,7 @@ docker pull ceticasbl/tsimulus-ms:1.6
 ```
 * Run the microservice: this command launches the Tsimulus microservice on port 8001.
 ```
-sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms:1.6
+docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms:1.6
 ```
 
 When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
