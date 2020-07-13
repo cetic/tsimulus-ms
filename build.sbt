@@ -1,6 +1,9 @@
 name := "tsimulus-ms"
 version := "1.6"
 scalaVersion := "2.11.8"
+
+enablePlugins(JavaAppPackaging, DockerPlugin, GitVersioning)
+
 git.formattedShaVersion := git.gitHeadCommit.value map { sha =>
 			s"$sha".substring(0, 8)
   }
