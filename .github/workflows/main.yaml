@@ -1,0 +1,26 @@
+name: publish
+
+on: [push]
+
+jobs:
+  publish:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v1
+      - name: Create tsimulus-saas Dockerfile
+        uses: agemooij/github-actions-sbt@master
+        with:
+          args: "backend/docker:stage"
+      - name: Get release version
+        id: get_version
+        run: echo ::set-env name=RELEASE_VERSION::$(cat build.sbt | grep "version :=" | sed 's/.$//' | cut -f 3 -d " " | tr -d '"')
+      - name: Publish to Docker Registry        
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ceticasbl/tsimulus-saas
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          workdir: backend/target/docker/stage/
+          snapshot: true
+          dockerfile: Dockerfile
+          tags: "latest,${{ env.RELEASE_VERSION }}"

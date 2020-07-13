@@ -42,35 +42,4 @@ sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms
 
 When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
 
-## 64-bit ARM architecture
-
-It exists also a docker image for 64-bit ARM architecture. The docker image has been created with the Dockerfile from the arm64 folder.
-
-* Pull the Docker image
-```
-docker pull ceticasbl/tsimulus-ms-arm64
-```
-* Run the microservice: this command launches the tsimulus-ws.jar on port 8001.
-```
-sudo docker run --name tsimulus-ms-arm64 -ti -p 8001:8001 -d ceticasbl/tsimulus-ms-arm64
-```
-
-# Tsimulus-ms with OpenShift
-
-You can also run the microservice with OpenShift. For that, we use Kubernetes files which can be found in the kubernetes folder.
-In your OpenShift project, first, create the Kubernetes deployment:
-```
-oc create -f tsimulus-deployment.yml
-```
-Then, create the Kubernetes service:
-```
-oc create -f tsimulus-service.yml
-```
-Finally, create a route by exposing the service tsimulus-ms.
-```
-oc expose service tsimulus-ms
-```
-
-Now the service is accessible at http://tsimulus-ms-tsimulus.apps.10.2.2.2.xip.io/.
-When it's done, as explained in the first section "How to use it?", the service can be accessed by submitting POST request to port 8001.
-
+The Docker image is published with Github Actions and Sbt Native Package.

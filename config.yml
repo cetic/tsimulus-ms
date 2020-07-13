@@ -1,0 +1,8 @@
+---
+configs:
+  sbt:
+    ip: '10.0.0.11'
+    box: 'bento/ubuntu-16.04'
+    cpu: '2'
+    ram: '2048'
+    hostname: 'sbt2'
