@@ -14,7 +14,7 @@ It provides a runnable JAR file that contains an Akka-based microservice.
 * Run it:
 
 ```bash
-> java -jar tsimulus-ws.jar -h 0.0.0.0 -p 8001
+> java -jar tsimulus-ms-1.6.jar -h 0.0.0.0 -p 8001
 ```
 
 This command will ask the service to listen to incoming connections on port 8001 from any client. Replace *0.0.0.0* by *localhost* for limiting the access to the service to clients running on your machine.
@@ -33,11 +33,11 @@ You can also retrieve the Docker image which contains the Tsimulus microservice.
 
 * Pull the Docker image
 ```
-docker pull ceticasbl/tsimulus-ms
+docker pull ceticasbl/tsimulus-ms:1.6
 ```
 * Run the microservice: this command launches the Tsimulus microservice on port 8001.
 ```
-sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms
+sudo docker run --name tsimulus-ms -ti -p 8001:8001 -d ceticasbl/tsimulus-ms:1.6
 ```
 
 When it's done, as explained in the previous section "How to use it?", the service can be accessed by submitting POST request to port 8001.
